@@ -1,0 +1,46 @@
+<!--
+ * @Author: 黄遥
+ * @Date: 2020-03-21 10:16:23
+ * @LastEditors: 黄遥
+ * @LastEditTime: 2020-03-21 21:29:51
+ * @Description: file content
+ -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    //Object() 将参数变成对象
+    console.log(Object(1));
+    console.log(Object(true));
+    //Object.is 判断两个值是否相等
+    console.dir(Object);
+    console.log(Object.is(0,-0));
+    //Object.assign 合并对象
+    let obj1={name:'哈哈'};
+    let obj2={age:10};
+    Object.assign(obj1,obj2);
+    console.log(obj1);
+    //ES7中提供了对象的拓展运算符 ....
+    let school={...obj1,...obj2};
+    console.log(school);
+    //Object.getOwnPropertyDescriptor 获取一个对象某个属性的描述
+    console.log(Object.getOwnPropertyDescriptor("123","length"));
+    //字符串的length不可以修改 字符串中的方法是不可以改变原字符串的
+    /*
+    * configurable:flase 是否可配置 可以删除这个属性
+    * enumerable:false 是否可枚举
+    * value: 3
+    * writable:false 是否可修改
+    */
+
+    console.log(Object.keys(school)) //返回值 数组【所有可枚举的属性】
+    console.log(Object.values(school)) //返回值 数组 【所有可枚举的属性的健值】
+    console.log(Object.entries(school)) //返回值 数组 【每一项也是一个数组[健，值]】
+  </script>
+</body>
+</html>

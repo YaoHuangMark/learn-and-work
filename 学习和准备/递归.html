@@ -1,0 +1,32 @@
+<!--
+ * @Author: 黄遥
+ * @Date: 2020-03-27 15:47:26
+ * @LastEditors: 黄遥
+ * @LastEditTime: 2020-03-27 16:02:09
+ * @Description: file content
+ -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    var arr = [[1,2],[3,4]]
+    function loop(arr) {
+      for(let i=0;i<arr.length;i++){
+        if(Array.isArray(arr[i])){
+          if(loop(arr[i])) return true // 设置状态中断递归
+        } else {
+          console.log(arr[i])
+          if(arr[i] === 2) return true
+        }
+      }
+      return false
+    }
+    loop(arr)
+  </script>
+</body>
+</html>

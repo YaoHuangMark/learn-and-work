@@ -1,0 +1,38 @@
+<!--
+ * @Author: 黄遥
+ * @Date: 2020-03-21 10:05:12
+ * @LastEditors: 黄遥
+ * @LastEditTime: 2020-03-21 10:11:53
+ * @Description: file content
+ -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    //箭头函数是匿名函数
+    //1.箭头函数没有this指向，里面的this是上一级作用域下的this
+    let obj = {
+      fn:function(){
+        let f=() => {
+          console.log(this)
+        }
+        f();
+      }
+    }
+    obj.fn()
+    //2.箭头函数没有arguments
+    let f1 = (...arg) => {
+      // console.log(arguments)
+      console.log(arg)
+    }
+    f1(1,2,3,4);
+    //3.箭头函数不可以用作构造函数 因此不可以使用new执行
+    
+  </script>
+</body>
+</html>

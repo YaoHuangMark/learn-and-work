@@ -1,0 +1,39 @@
+<!--
+ * @Author: 黄遥
+ * @Date: 2020-03-20 10:43:32
+ * @LastEditors: 黄遥
+ * @LastEditTime: 2020-03-20 10:52:51
+ * @Description: file content
+ -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <ul>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+  </ul>
+  <script>
+    console.dir(Array);
+    //Array类是一个函数，返回一个数组
+    //Array(x,y,z) 将参数变成一个数组返回 [x,y,z]
+    console.log(Array(1,2,3))
+    console.log(Array('1'))
+    console.log(Array(7)) // 创建一个长度为7的数组，值都为empty
+
+    //Array.of(); 跟Array一样的 唯一不同是，参数是一个数字的时候返回仍然是一个只有一项的数组
+    console.log(Array.of(7))
+
+    //Array.from(数组/类数组) 返回一个数组
+    console.log(Array.from([1,2,3]))
+    console.log(Array.from("123"))
+    console.log(Array.from(document.getElementsByTagName('li')))
+  </script>
+</body>
+</html>

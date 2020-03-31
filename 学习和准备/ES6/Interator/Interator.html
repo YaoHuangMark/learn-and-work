@@ -1,0 +1,135 @@
+<!--
+ * @Author: 黄遥
+ * @Date: 2020-03-29 09:57:21
+ * @LastEditors: 黄遥
+ * @LastEditTime: 2020-03-29 15:52:20
+ * @Description: file content
+ -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <p>Interator概念：JavaScript原有的表示“集合”的数据结构，主要是数组（Array）和对象（Object）</p>
+  <p>ES6又添加了Map和Set</p>
+  <p>遍历器（Interator）就是这样一种机制，它是一种接口，为各种不同的数据解构提供
+    统一的访问机制。任何数据只要部署Iterator接口，就可以完成遍历操作
+  </p>
+  <p>Interator的作用有三个：一是为各种数据解构，提供统一的、简便的访问接口；
+    二是使得数据解构的成员能够按某种次序排列
+    三是ES6创造了一种新的遍历命令for...of循环，Interator接口主要供for...of消费
+  </p>
+  <p>
+    Iterator 的遍历过程是这样的。
+
+    （1）创建一个指针对象，指向当前数据结构的起始位置。也就是说，遍历器对象本质上，就是一个指针对象。
+
+    （2）第一次调用指针对象的next方法，可以将指针指向数据结构的第一个成员。
+
+    （3）第二次调用指针对象的next方法，指针就指向数据结构的第二个成员。
+
+    （4）不断调用指针对象的next方法，直到它指向数据结构的结束位置。
+  </p>
+  <p>
+    ES6规定，默认的Iterator接口部署在数据结构的Symbol.iterator属性，或者说，一个数据结构只要
+    具有Symbol.iterator属性，就可以认为是“可遍历的”（iterable）。Symbol.iterator属性本身是一个函数，
+    就是当前数据结构默认的遍历器生成函数。执行这个函数，就会返回一个遍历器。至于属性名Symbol.iterator，它
+    是一个表达式，返回Symbol对象的iterator属性，这是一个预定义好的、类型为Symbol的特殊值
+  </p>
+  <p>
+    原生具备 Iterator 接口的数据结构如下。
+      Array
+      Map
+      Set
+      String
+      TypedArray
+      函数的 arguments 对象
+      NodeList 对象
+  </p>
+  <script>
+    const obj = {
+      [Symbol.iterator] : function() {
+        return {
+          next: function() {
+            return {
+              value: 1,
+              done: true
+            }
+          }
+        }
+      }
+    }
+    let arr = ['a','b','c'];
+    let iter = arr[Symbol.iterator]();
+    iter.next() // { value: 'a', done: false }
+    iter.next() // { value: 'b', done: false }
+
+    // 类似数组的对象调用数组的Symbol.iterator方法的例子
+    let iterator = {
+      0: 'a',
+      1: 'b',
+      2: 'c',
+      length: 3,
+      [Symbol.iterator]: Array.prototype[Symbol.iterator]
+    };
+    for(let item of iterator) {
+      console.log(item); // 'a','b','c'
+    }
+
+    //调用Iterator接口的场合
+    //（1）结构赋值
+    // 对数组和Set结构进行结构赋值时，会默认调用Symbol.iterator方法
+    let set = new Set().add('a').add(0).add(true);
+    let [x,y] = set; // a 0
+    let [first, ...rest] = set;// a [0, true]
+
+    //（2）扩展运算符
+    // 扩展运算符（...）也会调用默认的Iterator接口
+    // 例一
+    var str = 'hello';
+    [...str] // ['h','e','l','l','o']
+    // 例二
+    let arr = ['b','c'];
+    ['a',...arr,'d']
+    //上面的代码的扩展运算符内部就调用Iterator接口
+    //实际上，这提供了一种简便机制，可以将任何部署了Iterator接口的数据结构，转为数组
+    //也就是说，只要某个数据结构部署了Iterator接口，就可以对它使用扩展运算符，将其转为数组
+
+    //（3）其他场合
+    // 由于数组的遍历会调用遍历器接口，所以任何接受数组作为参数的场合，其实都调用了遍历器接口
+    // for...of
+    // Array.from()
+    // Map(), Set(), WeakMap(), WeakSet()（比如new Map([['a',1],['b',2]])）
+    // Promise.all()
+    // Promise.race()
+
+    // 数组原生具备iterator接口（即默认部署了Symbol.iterator属性），for...of循环本质上就是调用这个接口产生的遍历器
+    // 可以用下面的代码证明
+    const iarr = ['red','green','blue'];
+    for(let v of iarr) {
+      console.log(v);// red green blue
+    }
+    const iobj = {}
+    iobj[Symbol.iterator] = iarr[Symbol.iterator].bind(iarr);
+
+    for(let v of iobj) {
+      console.log(v);// red green blue
+    }
+
+    // for...of 循环调用遍历器接口，数组的遍历器接口只返回具有数字索引的属性，这一点跟 for...in 循环也不一样
+    let arr = [3, 5, 7];
+    arr.foo = 'hello';
+
+    for (let i in arr) {
+      console.log(i); // "0", "1", "2", "foo"
+    }
+
+    for (let i of arr) {
+      console.log(i); //  "3", "5", "7"
+    }
+  </script>
+</body>
+</html>

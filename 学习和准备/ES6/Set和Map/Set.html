@@ -1,0 +1,60 @@
+<!--
+ * @Author: 黄遥
+ * @Date: 2020-03-24 23:22:31
+ * @LastEditors: 黄遥
+ * @LastEditTime: 2020-03-25 21:18:28
+ * @Description: file content
+ -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    //类似数组，只有值value，没有键key
+    //通过构造函数方式创建一个Set实例
+    //参数是一个数组（或者是类似数组只有是有iterable接口）
+    //有iterable接口：数组，arguments，元素集合，Set，Map，字符串
+    //会默认去重
+    console.log(new Set([1,2,3,4]));
+    console.log(new Set('1234'));
+    function fn(){
+      console.log(new Set(arguments));
+    }
+    fn(1,2,3,4)
+
+    //add
+    let set = new Set([1,2,'3',null,NaN,true])
+    set.add(4)
+    console.log(set)
+    set.forEach((...val) => {
+      console.log(val)
+    })
+    //delete
+    set.delete(1)
+    console.log(set)
+    //clear 清空参数，没有返回值
+    set.clear()
+    //has 判断有没有此项，返回布尔
+    set.has(3)
+
+    let ary1 = [1,2,3,4,5,6]
+    let ary2 = [1,3,9,8,7,]
+    //并集
+    function assgin(ary1,ary2){
+      return [...new Set([...ary1,...ary2])]
+    }
+    //交集
+    function same(ary1,ary2){
+      return ary1.filter(item => ary2.includes(item))
+    }
+    //差集
+    function diff(ary1,ary2){
+      return assgin(ary1,ary2).filter(item => !same(ary1,ary2).includes(item))
+    }
+  </script>
+</body>
+</html>

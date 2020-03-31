@@ -1,0 +1,76 @@
+<!--
+ * @Author: 黄遥
+ * @Date: 2020-03-17 23:30:31
+ * @LastEditors: 黄遥
+ * @LastEditTime: 2020-03-18 00:20:57
+ * @Description: file content
+ -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <ul id="ui">
+    <li></li>
+    <li></li>
+  </ul>
+  <script>
+    // function 存在变量提升
+    // var 只会提前声明，function 既声明又定义
+    // var 全局定义会在 window 对象增加属性
+    'use strict'
+    console.log(a); // undefined
+    console.log(getA);
+    var a = 1;
+    function getA() {}
+
+    // console.log(b); // undefined，没有变量提升
+    let b = 1; // 不能重复声明
+    console.log(window.b); // 不会给 window 增加属性
+
+    // const 一旦声明必须赋值
+    // const 定义的是一个常量，不可以重新赋值
+
+    //{}: 一个{}就是一个块级作用域
+    // 在块级作用域下，var、function 定义的变量依然是全局的
+    // 在块级作用域下，let和const声明的变量是私有的
+    // for(){},if{},对象{}
+    // {name:"a",age:10} // 看成是一个块级作用域
+    ({name:'a',age:10}) // {} 不在行首即看作对象
+    console.log(eval('({name:"a",age:10})'))
+
+    // console.log(A);
+    // console.log(getAA);
+    if(0){ // if(){}中的function只会提前声明不会定义，当条件成立先给函数赋值，代码再执行
+      console.log(getAA);
+      var A = 1;
+      function getAA() {}
+    }
+
+    var dom = document.getElementById('ui').getElementsByTagName('li')
+    // for(var i=0;i<dom.length;i++) {
+    //   dom[i].onclick = function() {
+    //     alert(i)
+    //   }
+    // }
+    // 方法1:用闭包
+    for(var i=0;i<dom.length;i++) {
+      (function(i){
+        dom[i].onclick = function() {
+          alert(i)
+        }
+      })(i)
+    }
+    // 方法2:用参数接收
+    for(var i=0;i<dom.length;i++) {
+      dom[i].index = i
+      dom[i].onclick = function() {
+        alert(this.index)
+      }
+    }
+  </script>
+</body>
+</html>

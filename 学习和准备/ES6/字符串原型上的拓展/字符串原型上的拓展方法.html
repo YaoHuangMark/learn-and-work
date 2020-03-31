@@ -1,0 +1,41 @@
+<!--
+ * @Author: 黄遥
+ * @Date: 2020-03-20 10:11:17
+ * @LastEditors: 黄遥
+ * @LastEditTime: 2020-03-20 10:32:39
+ * @Description: file content
+ -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    console.log(String.prototype)
+    //1.includes 返回值 boolean
+    //判断字符串中有没有指定字符
+    //includes("指定字符"，开始查找位置(可选))
+    let str = 'adsfsaff';
+    console.log(str.includes('a',null));
+
+    //2.startsWith endsWith
+    //startsWith 判断字符串是不是以指定字符作为开头
+    //startWith('指定字符',开始查找的位置(可选))
+    console.log(str.startsWith('a'))
+
+    //repeat(num) 将字符串重复num次
+    //num 取整不可以是负数或者Infinity
+    console.log(str.repeat(1.9))
+    //0到-1，取整0
+
+    //padStart padEnd
+    //按照指定字符补全字符串的指定长度
+    //padStart(length,"指定字符")
+    let str1 = "ab"
+    str1.padStart(5,"ggg")
+  </script>
+</body>
+</html>

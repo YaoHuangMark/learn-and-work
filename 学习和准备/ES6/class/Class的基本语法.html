@@ -1,0 +1,147 @@
+<!--
+ * @Author: 黄遥
+ * @Date: 2020-03-30 15:12:13
+ * @LastEditors: 黄遥
+ * @LastEditTime: 2020-03-30 20:58:23
+ * @Description: file content
+ -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <p>ES6的class可以看作只是一个语法糖，它的绝大部分功能，ES5都可以做到，新的class写法只是让
+    对象原型的写法更加清晰，更像面向对象编程的语法而已
+  </p>
+  <script>
+    class Point {
+      constructor(x,y) {
+        this.x = x;
+        this.y = y;
+      }
+
+      toString() {
+        return `(${this.x},${this.y})`
+      }
+    }
+    // ES6 的类，完全可以看作构造函数的另一种写法
+    /**
+     * class Point {
+     *  // ...
+     * }
+     * typeof Point // function
+     * Point === Point.prototype.constructor // true
+     */
+    // 上面代码表明，类的数据类型就是函数，类本身就指向构造函数。
+
+    // 构造函数的 prototype 属性，在ES6的类上面继续存在。事实上，类的所以方法都定义在类的prototype属性上面
+
+    //类的内部所有定义的方法，都是不可枚举的
+    class Point {
+      constructor(x,y) {
+        // ...
+      }
+      toString() {
+        // ...
+      }
+    }
+    Object.keys(Point.prototype)
+    // []
+    Object.getOwnPropertyNames(Point.prototype)
+    // ['constructor', 'toString']
+
+    var Point = function(x,y){};
+    Point.prototype.toString = function(){};
+    console.log(Object.keys(Point));
+    console.log(Object.keys(Point.prototype));
+    console.log(Object.getOwnPropertyNames(Point.prototype));
+    // 上面代码采用的ES5的写法，toString 方法就是可枚举的
+
+
+    // constructor 方法是类的默认方法，通过new命令生成对象实例时，自动调用该方法。一个类必须有constructor方法，如果没有显示定义，一个空的constructor方法会被默认添加
+    class nConstuctor{}
+    // 等同于
+    class nConstuctor {
+      constructor(){}
+    }
+    //constuctor方法默认返回实例对象（即this），完全可以指定返回另外一个对象
+    class Foo{
+      constructor() {
+        return Object.create(null);
+      }
+    }
+    new Foo() instanceof Foo // false
+
+    // 与ES5一样，实例的属性除非显示定义在其本身（即定义在this对象上），否则都是定义在原型上（即定义在class上）
+    class es1 {
+      constructor(x,y) {
+        this.x = x;
+        this.y = y;
+      }
+      toString() {
+        return `(${this.x},${this.y})`
+      }
+    }
+    var es_1 = new es1(2,3);
+    es_1.toString(); // (2,3)
+    es_1.hasOwnProperty('x'); // true
+    es_1.hasOwnProperty('y'); // true
+    es_1.hasOwnProperty('toString'); // false
+    es_1.__proto__.hasOwnProperty('toString'); // true
+    // 与 ES5 一样，类的所有实例贡献一个原型对象
+    var p1 = new es_1(2,3);
+    var p2 = new es_1(3,2);
+    p1.__proto__ === p2.__proto__; // true
+
+    // 与ES5一样，在“类”的内部可以使用get和set关键字，对某个属性设置存值函数和取值函数，拦截该属性的存取行为
+    class MyClass {
+      constructor() {}
+      get prop() {
+        return 'getter';
+      }
+      set prop(value) {
+        console.log('setter：'+value);
+      }
+    }
+    let inst = new MyClass();
+    inst.prop = 123; // setter: 123
+    inst.prop // 'getter'
+
+    // 由于本质上，ES6的类只是ES5的构造函数的一层包装，所以函数的许多特性都被Class继承，包括name属性。
+    class ppp{}
+    ppp.name // 'ppp'
+
+
+    // 类相当于实例的原型，所有在类中定义的方法，都会被实例继承。如果在一个方法前，加上static关键字，就表示该方法不会被实例继承
+    // 而是直接通过类来调用，这就称为静态方法
+    class newFoo {
+      static classMethod() {
+        return 'hello';
+      }
+    }
+    newFoo.classMethod(); // 'hello'
+    var foo = new newFoo();
+    foo.classMethod() // TypeError: foo.classMethod is not a function
+    /**
+     * 上面代码中，Foo类的classMethod方法前有static关键字，表明该方法是一个静态方法，可以直接在Foo类上调用（Foo.classMethod()），而不是在Foo类的实例上调用。如果在实例上调用静态方法，会抛出一个错误，表示不存在该方法。
+
+        注意，如果静态方法包含this关键字，这个this指的是类，而不是实例。
+     */
+    class aFoo {
+      static bar() {
+        this.baz();
+      }
+      static baz() {
+        console.log('hello');
+      }
+      baz() {
+        console.log('world');
+      }
+    }
+    aFoo.bar(); // hello
+  </script>
+</body>
+</html>

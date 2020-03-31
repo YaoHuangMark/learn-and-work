@@ -1,0 +1,34 @@
+<!--
+ * @Author: 黄遥
+ * @Date: 2020-03-23 09:52:19
+ * @LastEditors: 黄遥
+ * @LastEditTime: 2020-03-23 15:58:58
+ * @Description: file content
+ -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    let obj = {
+      _name:"A",
+      get name() {
+        //只要通过obj获取name属性就会触发这个函数
+        //可以通过return返回值
+        return this._name
+      },
+      set name(val) {
+        console.log(val)
+        this._name = val
+      }
+    }
+    obj.name = 'huangyao'
+    console.log(obj.name)
+
+  </script>
+</body>
+</html>

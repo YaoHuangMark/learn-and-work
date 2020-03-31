@@ -1,0 +1,79 @@
+<!--
+ * @Author: 黄遥
+ * @Date: 2020-03-26 16:16:12
+ * @LastEditors: 黄遥
+ * @LastEditTime: 2020-03-26 17:23:15
+ * @Description: file content
+ -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <p>
+    Proxy可以理解成，在目标对象之前架设一层“拦截”，外界对改对象的访问，都必须先通过这层拦截，
+    因此提供了一种机制，可以对外界的访问进行过滤和改写。Proxy这个词的原意是代理，用在这里表示由它来“代理”某些操作
+  </p>
+  <script>
+    /**
+      target 表示要拦截的目标对象
+      handler 参数也是一个对象，用来定制拦截行为
+    */
+    // var proxy = new Proxy(target, handler);
+    //test
+    var proxy1 = new Proxy({}, {
+      get: function(target, propKey, receiver) {
+        console.log(target)
+        console.log(propKey)
+        console.log(receiver)
+        return 35;
+      }
+    })
+    console.log(proxy1.time)
+    console.log(proxy1.name)
+    console.log(proxy1.title)
+    
+    //如果 handler 没有设置任何拦截，那就等同于直接通向原对象
+    var target = {}
+    var handler = {}
+    var proxy2 = new Proxy(target,handler)
+    proxy2.a = 'b'
+    console.log(target.a)
+    //Proxy实例也可以作为其他对象的原型对象
+    var proxy3 = new Proxy({},{
+      get: function(target,propKey){
+        return 35
+      }
+    })
+    let obj = Object.create(proxy3)
+    obj.name // 35
+    //上面代码中，proxy对象是obj对象的原型，obj对象本身并没有time属性，所以根据原型链，会在proxy对象上读取该属性，导致被拦截
+    
+    //同一个拦截器函数，可以设置拦截多个操作
+    var handlerMore = {
+      get: function(target, name) {
+        if(name === 'prototype') {
+          return Object.prototype
+        }
+        return 'Hello,' + name
+      },
+      apply: function(target, thisBinding, args) {
+        return args[0]
+      },
+      construct: function(target, args) {
+        return {value: args[1]}
+      }
+    }
+    var fproxy = new Proxy(function(x,y) {
+      return x + y
+    }, handlerMore)
+    console.log(fproxy(1,2)) // 1
+    console.log(new fproxy(1,2)) // {value:2}
+    console.log(fproxy.prototype === Object.prototype) // true
+    console.log(fproxy.foo === 'Hello,foo') // true
+  </script>
+</body>
+</html>

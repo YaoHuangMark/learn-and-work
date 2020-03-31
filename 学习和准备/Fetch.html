@@ -1,0 +1,86 @@
+<!--
+ * @Author: 黄遥
+ * @Date: 2020-03-28 11:03:26
+ * @LastEditors: 黄遥
+ * @LastEditTime: 2020-03-28 11:33:32
+ * @Description: file content
+ -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <p>fetch是一种HTTP数据请求的方式，是XMLHttpRequest的一种替代方案。fetch不是ajax的进一步封装，而是原生js</p>
+  <p>Fetch函数就是原生js，没有使用XMLHttpRequest对象</p>
+  <div>
+    <p>ajax</p>
+    <p>使用步骤</p>
+    <ul>
+      <li>创建XMlHttpRequest对象</li>
+      <li>调用open方法设置基本请求信息</li>
+      <li>设置发送的数据，发送请求</li>
+      <li>注册监听的回调函数</li>
+      <li>拿到返回值，对页面进行更新</li>
+    </ul>
+    <p>fetch</p>
+    <p>特点</p>
+    <ul>
+      <li>第一个参数是URL</li>
+      <li>第二个是可选参数，可以控制不同配置的init对象</li>
+      <li>使用了JavaScript Promises来处理结果/回调</li>
+    </ul>
+    <p>
+      fetch和ajax的主要区别
+      1.fetch()返回的promise将不会拒绝http的错误状态，即使响应是一个http 404或者500
+      2.在默认情况下 fetch 不会接受或者发送cookies
+    </p>
+    <script>
+      //ajax
+      //1.创建ajax对象
+      if(window.XMLHttpRequest){
+        var oAjax = new XMLHttpRequest();
+      }else{
+        var oAjax = new ActiveXObject("Microsoft.XMLHTTP")
+      }
+      //2.连接服务器（打开和服务器的连接）
+      oAjax.open('GET',url,true)
+      //3.发送
+      oAjax.send()
+      //4.接收
+      oAjax.onreadystatechange = function(){
+        if(oAjax.readyState==4){
+          if(oAjax.status==200){
+            alert('成功了'+oAjax.responseText)
+          }else{
+            alert('失败了')
+          }
+        }
+      }
+
+      //fetch
+      fetch(url).then(response => response.json())
+      .then(data => console.log(data))
+      .catch(e => console.log("Oops, error", e))
+      /**
+      也可以通过Request构造器函数创建一个新的请求对象，你还可以基于原有的对象创建一个新的对象。
+      新的请求和旧的请求并没有什么不同，但你可以稍微调整配置对象，将其用于不同的场景
+      */
+      var req = new Request(URL,{method: 'Get', cache: 'reload'})
+      fetch(req).then(function(response){
+        return response.json()
+      }).then(function(json){
+        insertPhotos(json)
+      })
+      /**
+      上面的代码中我们指明了请求使用的方法为GET，并且指定不缓存响应的结果，你可以基于原有的GET请求创建一个POST请求，
+      它们具有相同的请求源，代码如下
+      */
+      //基于req对象创建新的postReq对象
+      var postReq = new Request(req,{method: 'post'})
+    </script>
+  </div>
+</body>
+</html>

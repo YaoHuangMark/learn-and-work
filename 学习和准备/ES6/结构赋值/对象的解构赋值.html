@@ -1,0 +1,36 @@
+<!--
+ * @Author: 黄遥
+ * @Date: 2020-03-19 22:54:10
+ * @LastEditors: 黄遥
+ * @LastEditTime: 2020-03-20 09:15:10
+ * @Description: file content
+ -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    let {x,y} = {x:1,y:2}
+    console.log(x,y)
+
+    var longestPalindrome = function(s) {
+      var set = new Set();
+      var count = 0;
+      for(var i=0; i<s.length; i++){
+        if(set.has(s[i])){
+          count +=2;
+          set.delete(s[i])
+        }else{
+          set.add(s[i])
+        }
+      }
+      return set.size>0 ? count+1 : count;
+    };
+    console.log(longestPalindrome('abccccdd'))
+  </script>
+</body>
+</html>

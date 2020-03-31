@@ -1,0 +1,37 @@
+<!--
+ * @Author: 黄遥
+ * @Date: 2020-03-21 09:47:11
+ * @LastEditors: 黄遥
+ * @LastEditTime: 2020-03-21 10:05:00
+ * @Description: file content
+ -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=<device-width>, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    //拓展运算符 ...
+    //1.将非数组变成数组（类数组 有 length）
+    let str = '123'
+    console.log([...str])
+
+    function fn() {
+      console.log([...arguments])
+    }
+    fn(1,23,445)
+    //2.将数组变成非数组
+    let arr1 = [1,2,3,4];
+    let arr2 = [10,20,30,40];
+    console.log(...arr1);
+    //求数组的最大值
+    let arr = [1,2,3,4,5,6];
+    console.log(Math.max.apply(null,arr));
+    console.log(eval("Math.max("+arr+")"));
+    Math.max(...arr);
+  </script>
+</body>
+</html>

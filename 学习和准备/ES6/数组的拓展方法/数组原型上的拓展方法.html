@@ -1,0 +1,77 @@
+<!--
+ * @Author: 黄遥
+ * @Date: 2020-03-20 10:53:47
+ * @LastEditors: 黄遥
+ * @LastEditTime: 2020-03-20 15:03:15
+ * @Description: file content
+ -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=<device-width>, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    console.log(Array.prototype)
+    //copyWithin 从原数组中读取内容 替换数组的指定位置的内容
+    //参数（替换的目标起始位置target，查找的起始位置begin，查找的结束位置end默认到末尾）
+    //原数组length不变，如果有超出部分截取掉
+    let ary1 = [1,2,3,4,5,6,7,8]
+    ary1.copyWithin(4,2,4)
+    ary1.copyWithin(3,2)
+    console.log(ary1)
+
+    //fill 按照指定字符填充数组
+    console.log(ary1.fill('hello'))
+    console.log(ary1.fill('hello',3,5))
+
+    //includes 判断数组中有没有某一项
+    // [1,2,3].includes(1)
+    
+    //filter 变量数组根据返回值去过滤原数组,得到新数组
+    let ary3 = ['h',2,3,4]
+    ary3.filter(function (item) {
+      console.log(this)
+      return item === 'h'
+    },ary1)
+
+    //find 先遍历数组，一旦参数函数返回true，停止查找,返回值
+    let a = ary3.find((item) => {
+      return typeof item === 'string'
+    })
+
+    //findIndex 先遍历数组，一旦参数函数返回true，停止查找，返回索引
+    let b = ary3.find((item) => {
+      return typeof item === 'string'
+    })
+
+    //every遍历数组，如果遍历每一项都返回true，最好结果为true，只要有一个为false，就是false
+    [1,2,3,4].every(item => {
+      return !isNaN(item)
+    })
+
+    //some遍历数组，只要有一项返回true，最好结果为true
+    [1,2,3,'hy'].some(item => {
+      return typeof item === 'string'
+    })
+
+    //reduce 迭代
+    let ary4 = [1,2,3,4,5]
+    ary4.reduce((prev,item) => {
+      //prev 上一次的返回值 item：当前项
+      return prev+item //求和
+    },10) //第一次没有返回值，可以设置10为第一个默认值
+
+    //reduceRight 跟reduce一样，顺序是从右开始
+
+    //keys遍历每一项索引
+
+    //entries遍历接口，可以遍历到索引和每一项，每一项遍历得到一个数组【索引，当前值】
+    for(let e of ary4.entries()) {
+      console.log(e)
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,44 @@
+<!--
+ * @Author: 黄遥
+ * @Date: 2020-03-20 15:36:30
+ * @LastEditors: 黄遥
+ * @LastEditTime: 2020-03-20 19:03:55
+ * @Description: file content
+ -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    //参数默认值
+    function fn(x='1',y='2') {
+      console.log(x,y)
+    }
+    //参数使用解构赋值
+    function fn1({name='1',age=16}={}){
+      console.log(name,age)
+    }
+    //length属性，形参的个数，如果形参有默认值，leng就会失真
+    function fn2(x,y=10){
+    }
+    console.log(fn2.length)
+    //参数默认值位置：一般参数的默认值放在最后面
+    function fn3(x,y=10){}
+    
+
+    //参数作用域问题
+    let m=10,n=10;
+    function fn5(x=m,y=n) {
+      //私有作用域：私有变量 x,y,m,n
+      console.log(x);
+      console.log(y);
+      let m="hhh";
+      let n="es6";
+    }
+  </script>
+</body>
+</html>

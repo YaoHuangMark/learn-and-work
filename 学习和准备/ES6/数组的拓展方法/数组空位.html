@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    //数组的空位 数组的某个索引位置没有任何值 undefined 不是空位
+    //判断一个数组中某一个位置是不是空位 in
+    //in：判断数组索引位置上有没有值
+    let arr=[,,,,,]; //五个空位的数组
+    console.log(arr.length);
+    console.log(0 in arr); //false
+
+    //在ES5中数组方法对空位的处理不一致，一般直接跳过空位
+    //在ES6中的方法将空位处理为undefined
+    let arr1=[1,2,,,,3];
+    arr1.filter(function(item){ //es5
+      console.log(item)
+    });
+    arr1.find(function(item){
+      console.log(item)
+    });
+    for(let item of arr1) {
+      console.log(item)
+    }
+    for(let key in arr1) { //es5
+      console.log(key)
+    }
+  </script>
+</body>
+</html>

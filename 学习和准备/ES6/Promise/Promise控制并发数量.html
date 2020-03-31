@@ -1,0 +1,60 @@
+<!--
+ * @Author: 黄遥
+ * @Date: 2020-03-27 15:03:37
+ * @LastEditors: 黄遥
+ * @LastEditTime: 2020-03-27 15:20:07
+ * @Description: file content
+ -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    var urls = [
+      'https://www.kkkk1000.com/images/getImgData/getImgDatadata.jpg', 
+      'https://www.kkkk1000.com/images/getImgData/gray.gif', 
+      'https://www.kkkk1000.com/images/getImgData/Particle.gif', 
+      'https://www.kkkk1000.com/images/getImgData/arithmetic.png', 
+      'https://www.kkkk1000.com/images/getImgData/arithmetic2.gif', 
+      'https://www.kkkk1000.com/images/getImgData/getImgDataError.jpg', 
+      'https://www.kkkk1000.com/images/getImgData/arithmetic.gif', 
+      'https://www.kkkk1000.com/images/wxQrCode2.png'
+    ];
+    function loadImg(url) {
+      return new Promise((resolve, reject) => {
+        const img = new Image()
+        img.onload = function () {
+            console.log('一张图片加载完成');
+            resolve();
+        }
+        img.onerror = reject
+        img.src = url
+      })
+    };
+    //递归
+    var count = 0;
+    //请求的异步函数，
+    function request() {
+      count++;
+      loadImg(urls.shift()).then(()=>{
+        count--
+      }).then(diaodu)
+    }
+    //负责调度的函数
+    function diaodu() {
+      if(urls.length>0&&count<=3){
+        request()
+      }
+    }
+    function async1(){
+      for(var i=0;i<3;i++){
+        request()
+      }
+    }
+  </script>
+</body>
+</html>

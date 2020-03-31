@@ -1,0 +1,79 @@
+<!--
+ * @Author: 黄遥
+ * @Date: 2020-03-26 23:04:40
+ * @LastEditors: 黄遥
+ * @LastEditTime: 2020-03-26 23:33:32
+ * @Description: file content
+ -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    // 回调函数即——函数作为参数传入另外一个函数，并执行
+    var aaaa='aaaa'
+    const A = 'yao' // const、let、class定义的变量不在window上，只是一个块级作用域（Script）中
+    function B(name,callback){
+      console.log(this.A)
+      this.C = 'sb'
+      if(typeof callback === 'function'){
+        callback(name)
+      }
+    }
+    function callback(name) {
+      console.log(this)
+      console.log(this.A)
+      console.log(this.C)
+      console.log(name)
+    }
+    B('huang',callback)
+    
+    /**
+    函数和对其周围状态（lexical environment，词法环境）的引用捆绑在一起构成闭包（closure）。也就是说，闭包可以让你从内部函数访问外部函数作用域
+    在 JavaScript 中，每当函数被创建，就会在函数生成时生成闭包。
+    */
+    function father(){
+      this.name = 'father';
+      var age = 18
+      return function (){
+        console.log(this.name)
+        console.log(age)
+      }
+    }
+    father()()
+    console.log(name)
+
+    // let、var、this 在函数中声明变量的区别
+    function test(){
+      var aa; //声明一
+      let bb;//声明二
+      this.cc;//声明三
+
+      //声明一局部代码块
+      {
+          let dd;//声明四     
+      }   
+    }
+    //在函数内部用var声明的变量是在scope（作用域）中，而用this声明的变量则是指当前上下文（content），即是谁调用的
+    /**
+    let 声明的变量作用域为某个代码块。而代码块的长度可大可小。
+    也就是说，当按声明二的方式声明一个变量时，该变量的作用范围于为整个function语句。
+    当按声明四方式声明一个变量时，该变量的作用范围为局部的代码块。
+
+    var
+    如果在函数内部，加var就是局部变量，不加是全局变量。
+    在函数外面，也就是说在window区域加不加var是一样的，该var变量的作用域为整个js文件周期（全局作用域）。
+
+    this
+    this多用于函数内部，它永远指向调用他的那个对象
+    简单地说，用this声明的变量作用域也是全局的。
+    如果实例化test函数 var p=new test() 那么用p能访问test函数内的哪些变量呢？
+    答案是只有cc 。实际上this声明的变量是作用于上下文的。
+    */
+  </script>
+</body>
+</html>
