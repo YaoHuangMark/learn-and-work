@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <p>
+    默认情况下，浏览器是同步加载Javascript脚本，即渲染引擎遇到 script 标签就会停下来，等到执行完脚本，
+    再继续向下渲染。如果是外部脚本，还必须加入脚本下载的时间，如果体积过大，容易造成页面卡死，所以浏览器
+    允许脚本异步加载
+  </p>
+  <script src="path/to/myModule.js" defer></script>
+  <script src="path/to/myModule.js" async></script>
+  <script>
+    //script标签打开defer或async属性，脚本就会异步加载。渲染引擎遇到这一行命令，就会开始下载外部脚本，但不会等它下载和执行，而是直接执行后面的命令
+    //defer与async的区别是，defer是渲染完再执行，async是下载完就执行，如果有多个defer脚本，会按照它们再页面出现的顺序加载
+    //浏览器加载ES6模块，也使用script标签，但是要加入 type=“module” 属性
+
+
+    //ES6模块的运行机制与CommonJS不一样。JS引擎对脚本静态分析的时候，遇到模块加载命令import，就会生成一个只读引用。
+    //等到脚本真正执行时，再根据这个只读引用，到被加载的那个模块里面去取值。因此，ES6模块是动态引用，并且不会缓存值，模块里面的变量绑定其所在的模块
+    //lib.js
+    export let counter = 3;
+    export function incCounter(){
+      counter++;
+    }
+    //main.js
+    import{counter,incCounter} from './lib';
+    console.log(counter); // 3
+    incCounter();
+    console.log(counter); // 4
+
+    //由于ES6输入的模块变量，只是一个“符号连接”，所以这个变量是只读的，对它进行重新赋值会报错
+    // lib.js
+    export let obj = {};
+    // main.js
+    import {obj} from './lib';
+    obj.prop = 123; // OK
+    obj = {}; // TypeError
+
+    //export通过接口，输出的是同一个值，不同的脚本加载这个接口，得到的都是同样的实例
+    
+
+    /**
+      CommonJS 模块的加载原理
+      CommonJS的一个模块，就是一个脚本文件。require 命令第一次加载该脚本，就会执行整个脚本，然后在内存生成一个对象
+      下面的代码就是Node内部加载模块后生成的一个对象。该对象的id属性是模块名，exports属性是模块输出的各个接口，loaded属性是一个布尔值，
+      表示该模块的脚本是否执行完毕，其他还有很多属性，这里都省略了。
+      以后需要用到这个模块的时候，就会到exports属性上面取值。即使再次执行require命令，也不会再次执行该模块，而是到缓存之中取值。
+    */
+    // {
+    //   id: '',
+    //   exports: {...},
+    //   loaded: true
+    // }
+  </script>
+</body>
+</html>

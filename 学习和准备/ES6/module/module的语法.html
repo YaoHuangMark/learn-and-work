@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <p>在ES6之前，社区制定了一些模块加载方案，最主要的有CommonJS和AMD两种。前者用于服务器，后者用于浏览器。</p>
+  <script>
+    // CommonJS模块就是对象，输入时必须查找对象属性
+    let {stat,exists,readFile} = require('fs');
+    //等同于
+    let _fs = require('fs');
+    let stat = _fs.stat;
+    let exists = _fs.exists;
+    let readfile = _fs.readfile;
+    //上面代码的实质是整体加载fs模块（即加载fs的所有方法），生产一个对象，然后再从这个对象上面读取3个方法。这种
+    //加载称为“运行时加载”，因为只有运行时才能得到这个对象，导致完全没办法在编译时做“静态优化”
+
+    //ES6模块不是对象，而是通过export命令显示指定输出的代码，再通过import命令输入
+    import {stat, exists,readfile} from 'fs'
+    //上面代码的实质是从fs模块加载3个方法，其他方法不加载。这种加载称为“编译时加载”或者静态加载
+
+
+    //如果要使用的常量非常多，可以建一个专门的constants目录，将各种常量写在不同的文件里面，保存在该目录下
+    //constants/db.js
+    export const db = {
+      url: 'www.baidu.com',
+      admin_username: 'admin',
+      admin_password: 'admin password'
+    }
+    //constants/user.js
+    export const users = ['root','admin','ceo']
+    //然后将这些文件输出的常量，合并在index.js里面
+    //constants/index.js
+    export {db} from './db'
+    export {users} from './users'
+    //使用的时候，直接加载index.js就可以了
+    //script.js
+    import {db,users} from './constants/index'
+  </script>
+</body>
+</html>
