@@ -1,3 +1,4 @@
+// https://zhuanlan.zhihu.com/p/62488780
 class MyPromise {
   constructor(executor) {
     //控制状态，使用一次之后，接下来的都不被使用

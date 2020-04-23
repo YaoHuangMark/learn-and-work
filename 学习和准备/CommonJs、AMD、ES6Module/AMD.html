@@ -1,0 +1,44 @@
+<!--
+ * @Author: 黄遥
+ * @Date: 2020-04-02 10:17:25
+ * @LastEditors: 黄遥
+ * @LastEditTime: 2020-04-02 10:40:39
+ * @Description: file content
+ -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="./require.js"></script>
+</head>
+<body>
+  <script>
+    /**
+     * define(id?: String, dependencies?: String[], factory: Function|Object);
+     * id 是模块的名字，它是可选的参数。dependencies 指定了所要依赖的模块列表，
+     * 它是一个数组，也是可选的参数，每个依赖的模块的输出将作为参数一次传入 factory 中。
+     * 如果没有指定 dependencies，那么它的默认值是 ["require", "exports", "module"]。
+     * 
+     * demo：定义一个名为 myModule 的模块，它依赖 jQuery 模块：
+     * define('myModule', ['jquery'], function($) {
+            // $ 是 jquery 模块的输出
+            $('body').text('hello world');
+        });
+        // 使用
+        require(['myModule'], function(myModule) {});
+     */
+    define('m1', function() {
+      let name = 'huangyao';
+      function sayName() {
+        console.log(name);
+      }
+      return { sayName }
+    });
+    require(['m1'],function(md){
+      md.sayName();
+    })
+  </script>
+</body>
+</html>

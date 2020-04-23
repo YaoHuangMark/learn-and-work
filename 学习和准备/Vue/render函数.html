@@ -1,0 +1,66 @@
+<!--
+ * @Author: 黄遥
+ * @Date: 2020-04-18 16:23:22
+ * @LastEditors: 黄遥
+ * @LastEditTime: 2020-04-18 17:16:29
+ * @Description: file content
+ -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+  <div id="app">
+    <my-name :level="1">my name is hhh</my-name>
+    <my-model v-model="num"></my-model>
+    {{num}}
+  </div>
+  <script>
+    Vue.component('my-name', {
+      render: function(createElement) {
+        return createElement(
+          'h' + this.level,
+          {
+            style: {
+              color: 'red'
+            }
+          },
+          this.$slots.default,
+        )
+      },
+      props: {
+        level: {
+          type: Number,
+          required: true
+        }
+      }
+    })
+    Vue.component('my-model', {
+      props: ['value'],
+      render: function(createElement) {
+        var self = this
+        return createElement('input', {
+          domProps: {
+            value: self.value
+          },
+          on: {
+            input: function(event) {
+              console.log(event.target.value)
+              self.$emit('input', event.target.value)
+            }
+          }
+        })
+      }
+    })
+    var app = new Vue({
+      data: {
+        num: 1
+      }
+    }).$mount('#app')
+  </script>
+</body>
+</html>

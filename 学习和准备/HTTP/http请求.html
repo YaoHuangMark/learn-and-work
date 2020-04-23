@@ -1,0 +1,41 @@
+<!--
+ * @Author: 黄遥
+ * @Date: 2020-04-03 09:35:21
+ * @LastEditors: 黄遥
+ * @LastEditTime: 2020-04-03 09:57:59
+ * @Description: file content
+ -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <p>
+    请求 header 的 Referer
+    Referer 是 HTTP 请求 Header 的一部分，当浏览器向 Web 服务器发送请求的时候，请求头信息一般
+    需要包含 Referer。该 Referer 会告诉服务器我是从哪个页面链接过来的，服务器基此可以获得一些信息用于处理
+  </p>
+  <p>Referer 作用</p>
+  <ul>
+    <li>
+      (1) 防盗链
+      比如办事通服务器只允许网站访问自己的静态资源，那服务器每次都需要判断 Referer 的值是否是
+      zwfw.yn.gov.cn，如果是就继续访问，不是就拦截
+    </li>
+    <li>
+      (2) 防止恶意请求
+      比如静态请求是 .html 结尾的，动态请求是 .shtml，那么所有的 *.shtml 请求，必须 Referer 为我自己的网站才可以访问
+    </li>
+  </ul>
+  <p>
+    Referer 为空的情况
+    1、直接在浏览器的地址栏中输入一个资源的URL地址，那么这种请求是不会包含 Referer 字段的，因为这是一个“凭空产生”的HTTP请求，并不是从一个地方链接过去的
+    2、从收藏夹链接
+    3、单击主页或自定义的地址
+    4、使用 location.href 或者是 location.replace
+  </p>
+</body>
+</html>

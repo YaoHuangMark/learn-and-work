@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    /*
+    Vuex(2.3.0+)可以用 store.registerModule 方法在进入路由时进行注册，离开路由时销毁
+    actions、mutations、getters、state，在一定范围内相同名称不会被覆盖
+    */
+    // 传 this 的写法
+    module.exports = {
+      install(_this) {
+        _this.$store.registerModule(['abc'], {
+          namespaced: true,
+          state: {
+            rightTest: 999
+          },
+          actions: {
+            setTest: ({commit}, val) => {
+              commit('putTest', val)
+            }
+          },
+          mutations: {
+            putTest: (state, val) => {
+              state.rightTest = val;
+            }
+          }
+        })
+      },
+      uninstall(_this) {
+        _this.$store.unregisterModule(['abc'])
+      }
+    }
+
+    // 不传this，引用store的写法
+    import store from '../../store'
+
+    export default {
+      install() {
+        store.registerModule(['abc'], {
+          namespaced: true,
+          state: {
+            rightTest: 999
+          },
+          actions: {
+            setTest: ({commit}, val) => {
+              commit('putTest', val)
+            }
+          },
+          mutations: {
+            putTest: (state, val) => {
+              state.rightTest = val
+            }
+          }
+        })
+      },
+      uninstall() {
+        store.unregisterModule(['abc'])
+      }
+    }
+
+    // test.vue
+    import abc from '../../store/test'
+
+    created() {
+      // 挂载对应的 store
+      abc.install(this)
+      console.log(this.$store, 'install')
+    }
+    destroyed() {
+      // 销毁对应的 store
+      abc.uninstall(this)
+      console.log(this.$store, 'uninstall')
+    }
+    methods: {
+      test() {
+        this.$store.dispatch('abc/setTest', Math.random())
+      }
+    }
+  </script>
+</body>
+</html>
