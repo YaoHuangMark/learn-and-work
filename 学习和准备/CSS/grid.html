@@ -1,0 +1,62 @@
+<!--
+ * @Author: 黄遥
+ * @Date: 2020-04-29 09:32:17
+ * @LastEditors: 黄遥
+ * @LastEditTime: 2020-04-29 10:49:14
+ * @Description: file content
+ -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    /* .container {
+      display: grid;
+      grid-template-columns: repeat(3, 100px);
+      grid-template-rows: repeat(3, 100px);
+    } */
+    .container {
+      display: grid;
+      grid-template-columns: 100px 100px 100px;
+      grid-template-rows: 100px 100px 100px;
+      grid-template-areas: 'a b c'
+                          'd e f'
+                          'g h i';
+    }
+  </style>
+</head>
+<body>
+  <!-- 采用网格布局的区域，称为"容器"（container）。容器内部采用网格定位的子元素，称为"项目"（item） -->
+  <div class="container">
+    <div><p>1</p></div>
+    <div><p>2</p></div>
+    <div><p>3</p></div>
+  </div>
+  <script>
+    /**
+      有时，单元格的大小是固定的，但是容器的大小不确定。如果希望每一行（或每一列）容纳尽可能多的单元格，这时可以使用auto-fill关键字表示自动填充
+      grid-template-columns: repeat(auto-fill, 100px);
+    */
+    /**
+      为了方便表示比例关系，网格布局提供了fr关键字（fraction 的缩写，意为"片段"）。如果两列的宽度分别为1fr和2fr，就表示后者是前者的两倍
+      grid-template-columns: 1fr 1fr; // 代表两个相同宽度的列
+    */
+    /**
+      minmax()函数产生一个长度范围，表示长度就在这个范围之中。它接受两个参数，分别为最小值和最大值
+      grid-template-columns: 1fr 1fr minmax(100px, 1fr);
+      上面代码中，minmax(100px, 1fr)表示列宽不小于100px，不大于1fr
+    */
+    /**
+      传统十二网格布局：grid-template-columns: repeat(12, 1pr)
+      列间距：column-gap: 20px
+      行间距：row-gap: 20px
+      缩写：gap 代表行间距和列间距，例如：gap: 20px 20px;
+      grid-template-areas：指定网格布局“区域”，一个区域由单个或多个单元格组成
+      grid-auto-flow：划分网格以后，容器的子元素会按照顺序，自动放置在每一个网格。默认的放置顺序是"先行后列"，即先填满第一行，再开始放入第二行
+      这个顺序由grid-auto-flow属性决定，默认值是row，即"先行后列"。也可以将它设成column，变成"先列后行"
+    */
+  </script>
+</body>
+</html>
