@@ -2,7 +2,7 @@
  * @Author: 黄遥
  * @Date: 2020-03-26 12:20:07
  * @LastEditors: 黄遥
- * @LastEditTime: 2020-03-26 12:51:46
+ * @LastEditTime: 2020-06-13 13:35:57
  * @Description: file content
  -->
 <!DOCTYPE html>
@@ -27,13 +27,14 @@
   <script>
     var app = document.getElementById('app')
     var sp = document.getElementById('sp')
-    var dv = document.getElementById('sp')
+    var dv = document.getElementById('dv')
     app.addEventListener('click', function(e) {
       console.log("点击body")
       e.stopImmediatePropagation()
     },false)
     dv.addEventListener('click', function(e) {
       console.log("点击div")
+      // e.stopPropagation()
       e.stopImmediatePropagation()
     },true)
     sp.addEventListener('click', function(e) {

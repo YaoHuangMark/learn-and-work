@@ -1,0 +1,38 @@
+<!--
+ * @Author: 黄遥
+ * @Date: 2020-07-02 17:07:53
+ * @LastEditors: 黄遥
+ * @LastEditTime: 2020-07-02 17:10:13
+ * @Description: file content
+--> 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div id="traffic-light">1212</div>
+  <script>
+    function sleep(duration){
+      return new Promise(function(resolve){
+          setTimeout(resolve, duration);
+      })
+    }
+    async function changeColor(duration,color){
+      document.getElementById("traffic-light").style.background = color;
+      await sleep(duration);
+
+    }
+    async function main(){
+      while(true){
+          await changeColor(3000,"green");
+          await changeColor(1000, "yellow");
+          await changeColor(2000, "red");
+      }
+    }
+    main()
+  </script>
+</body>
+</html>

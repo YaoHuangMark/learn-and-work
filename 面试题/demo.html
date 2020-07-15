@@ -1,0 +1,29 @@
+<!--
+ * @Author: 黄遥
+ * @Date: 2020-06-20 21:28:26
+ * @LastEditors: 黄遥
+ * @LastEditTime: 2020-07-03 09:20:55
+ * @Description: file content
+--> 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script type="text/javascript" src="./script2.js" defer></script>
+  <script type="text/javascript" src="./script1.js" defer></script>
+  <script>
+    console.log('body run start')
+  </script>
+</head>
+<body>
+  <p>hello</p>
+  <p>after script tags</p>
+  <script type="text/javascript">
+    window.addEventListener('DOMContentLoaded', function() {
+      console.log('DOMContentLoaded')
+    })
+  </script>
+</body>
+</html>

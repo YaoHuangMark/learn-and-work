@@ -2,16 +2,17 @@
  * @Author: 黄遥
  * @Date: 2020-04-26 10:08:10
  * @LastEditors: 黄遥
- * @LastEditTime: 2020-04-26 11:06:23
+ * @LastEditTime: 2020-06-24 15:18:20
  * @Description: file content
+ https://blog.csdn.net/celte/article/details/39412683
  -->
 ## 编译原理
 
 - 词法分析
 >将代码分解为代码块，即词法单元（例：var a = 2;）
-- 语法分析
+- 语法解析
 >这个过程是将词法单元流转换成一个由元素逐级嵌套所组成的代表了程序语法结构的树。即 “抽象语法树” AST
-- 生产可执行代码
+- 生成可执行代码
 >将 AST 转换为可执行代码的过程称为代码生成
 
 ## 编译过程

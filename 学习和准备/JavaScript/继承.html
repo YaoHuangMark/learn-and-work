@@ -1,0 +1,112 @@
+<!--
+ * @Author: 黄遥
+ * @Date: 2020-07-06 16:59:59
+ * @LastEditors: 黄遥
+ * @LastEditTime: 2020-07-07 14:16:32
+ * @Description: file content
+--> 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    // 原型继承 不能多继承；多个实例共享一个原型对象
+    // function Parent() {
+    //   this.name = 'parent'
+    // }
+    // Parent.prototype.age = 55
+    // function Son() {
+    //   this.name = 'son'
+    // }
+    // Son.prototype = new Parent()
+    // let son1 = new Son()
+    // let son2 = new Son()
+    // console.log(Son.prototype)
+    // son1.__proto__.age = 12
+    // console.log(son2.age)
+    // console.log(Parent.prototype.age)
+    // console.log(son1 instanceof Parent)
+    
+    // 构造函数继承 不能继承原型上的数据
+    // function Parent() {
+    //   this.name = 'parent'
+    // }
+    // Parent.prototype.sex = 'man'
+    // function Son() {
+    //   Parent.call(this)
+    //   this.age = 12
+    // }
+    // var son = new Son()
+    // console.log(son.age)
+    // console.log(son.name)
+    // console.log(son.sex)
+    // console.log(son instanceof Parent)
+
+    // 组合继承 通过构造函数继承，继承父类的属性，然后通过将父类实例作为子类原型，实现函数复用
+    // function Person(name, age) {
+    //   this.name = name || 'demo'
+    //   this.age = age || 22
+    // }
+    // Person.prototype.eat = function() {
+    //   return this.name + this.age + 'eat sleep'
+    // }
+    // function Women(name, age) {
+    //   Person.call(this, name, age)
+    // }
+    // Women.prototype = new Person()
+    // Women.prototype.constructor = Women // 修复原型
+    // let ren = {
+    //   name: 'ren',
+    //   age: 22
+    // }
+    // let women = new Women('ren', 27)
+    // console.log(women.eat())
+    // console.log(Women.prototype.constructor)
+
+    // 寄生组合继承 通过寄生方式，砍掉父类的实例属性，这样，在调用两次父类的构造的时候，就不会初始化两次实例方法/属性
+    // function Cat(name){
+    //   Animal.call(this);
+    //   this.name = name || 'Tom';
+    // }
+    // (function(){
+    //   // 创建一个没有实例方法的类
+    //   var Super = function(){};
+    //   Super.prototype = Animal.prototype;
+    //   //将实例作为子类的原型
+    //   Cat.prototype = new Super();
+    // })();
+    // // Test Code
+    // var cat = new Cat();
+    // console.log(cat.name);
+    // console.log(cat.sleep());
+    // console.log(cat instanceof Animal); // true
+    // console.log(cat instanceof Cat); //true
+
+    // ES6 继承
+    class Parent {
+      constructor(name='parent', age='27') {
+        this.name = name
+        this.age = age
+      }
+      eat() {
+        return `${this.name} ${this.age} eat food`
+      }
+    }
+    class Son extends Parent {
+      constructor(name='ren', age='27') {
+        // 继承父类属性
+        super(name, age)
+      }
+      eat() {
+        return super.eat()
+      }
+    }
+    let wonman = new Son('xiaoming', 16)
+    console.log(wonman.eat())
+  </script>
+</body>
+</html>

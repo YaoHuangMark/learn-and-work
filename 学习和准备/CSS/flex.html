@@ -2,8 +2,8 @@
  * @Author: 黄遥
  * @Date: 2020-04-28 09:15:28
  * @LastEditors: 黄遥
- * @LastEditTime: 2020-04-29 09:28:48
- * @Description: file content
+ * @LastEditTime: 2020-07-13 16:59:17
+ * @Description: http://www.ruanyifeng.com/blog/2015/07/flex-grammar.html
  -->
 <!DOCTYPE html>
 <html lang="en">
@@ -76,33 +76,34 @@
     <span style="background-color: red;">text-top</span>
     <img src="./man_active.png" style="vertical-align: text-top;">
 </div>
-  <script>
-    /**
-      flex 默认 0 1 auto
-      flex: 1 代表 flex: 1, 1, 0%
-      flex: auto 代表 flex: 1, 1, auto
-    */
-    /**
-      子元素总基线，0% + auto（即自身宽度100）+ 200px = 300px;
-      剩余可分配空间： 600px - 300px = 300px;
-      可分配份数： 2 + 2 + 1 = 5；
-      每份宽度： 300px / 5 = 60px;
-      最后个子元素能分配的空间为
-      content1：0% + 2 * 60px = 120px;
-      content2：100px + 2 * 60px = 220px;
-      content3：200px + 2 * 60px = 260px;
-    */
-    /**
-      flex: auto 代表 flex: 1, 1, auto;
-      子元素总基线，auto(140px) + auto(100px) + auto(0) = 240px;
-      剩余可分配空间：600px - 240px = 360px;
-      可分配份数： 1 + 1 + 1 = 3；
-      每份宽度：360px / 3 = 120px;
-      每个子元素能分配的空间为
-      content4: 140px + 120px = 260px;
-      content5: 100px + 120px = 220px;
-      content6: 0 + 120px = 120px;
-    */
-  </script>
+<script>
+  /**
+    flex-grow / flex-shrink / flex-basis
+    flex 默认 0 1 auto
+    flex: 1 代表 flex: 1, 1, 0%
+    flex: auto 代表 flex: 1, 1, auto
+  */
+  /**
+    子元素总基线，0% + auto（即自身宽度100）+ 200px = 300px;
+    剩余可分配空间： 600px - 300px = 300px;
+    可分配份数： 2 + 2 + 1 = 5；
+    每份宽度： 300px / 5 = 60px;
+    最后个子元素能分配的空间为
+    content1：0% + 2 * 60px = 120px;
+    content2：100px + 2 * 60px = 220px;
+    content3：200px + 2 * 60px = 260px;
+  */
+  /**
+    flex: auto 代表 flex: 1, 1, auto;
+    子元素总基线，auto(140px) + auto(100px) + auto(0) = 240px;
+    剩余可分配空间：600px - 240px = 360px;
+    可分配份数： 1 + 1 + 1 = 3；
+    每份宽度：360px / 3 = 120px;
+    每个子元素能分配的空间为
+    content4: 140px + 120px = 260px;
+    content5: 100px + 120px = 220px;
+    content6: 0 + 120px = 120px;
+  */
+</script>
 </body>
 </html>
