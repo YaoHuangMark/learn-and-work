@@ -32,5 +32,8 @@
     "presets": [
       "env"
     ]
+  },
+  "dependencies": {
+    "lodash": "^4.17.19"
   }
 }
