@@ -17,25 +17,3 @@ function demo(act, arr) {
   return st
 }
 console.log(demo(12,[2,2,1]))
-
-// 用正则把a字符串替换成b字符串
-function aReplace(a, b, str) {
-  return str.replace(/a/g, b)
-}
-console.log(aReplace('a', 'b', 'adfdseaeaa'))
-
-function foo() {
-  var a = 1
-  let b = 2
-  {
-    let b = 3
-    var c = 4
-    let d = 5
-    console.log(a)
-    console.log(b)
-  }
-  console.log(b)
-  console.log(c)
-  console.log(d)
-}
-foo()

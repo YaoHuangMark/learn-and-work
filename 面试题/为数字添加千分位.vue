@@ -5,13 +5,6 @@
     <p>{{numSplit(-123.123)}}</p>
     <p>{{numSplit(12344.123)}}</p>
     <p>{{numSplit(12345678.1234)}}</p>
-
-    <ul id="list">
-      <li>点击我弹出0</li>
-      <li>点击我弹出1</li>
-      <li>点击我弹出2</li>
-      <li>点击我弹出3</li>
-    </ul>
   </div>
 </template>
 <script>
@@ -32,12 +25,6 @@ export default {
       a = a.replace(c,',');
       return a + '.' + b
     }
-  },
-  mounted() {
-    document.querySelector('#list').addEventListener('click', (el) => {
-      console.log(el)
-      console.log(Array.from(document.querySelector('#list').children).indexOf(el.target))
-    })
   }
 }
 </script>
